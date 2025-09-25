@@ -1,5 +1,10 @@
 /**
  * Type definitions for the depmanager CLI tool
+ * 
+ * Copyright (c) 2024, depmanager contributors
+ * 
+ * This source code is licensed under the ISC license found in the
+ * LICENSE file in the root directory of this source tree.
  */
 
 export interface PackageManagerInfo {

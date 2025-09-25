@@ -202,6 +202,9 @@ npm run test:watch
 
 # Verify all functionality
 npm run test:verify
+
+# Check license headers
+npm run license:check
 ```
 
 Test coverage includes:
@@ -209,6 +212,15 @@ Test coverage includes:
 - Workspace configuration parsing
 - Version type determination
 - Error handling scenarios
+
+### License Compliance
+
+All source files include proper ISC license headers. The license check ensures:
+- Copyright notice is present
+- License text is included
+- Headers are properly formatted
+
+License headers are automatically verified in CI/CD pipeline.
 
 ### Contributing
 

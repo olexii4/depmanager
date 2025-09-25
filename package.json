@@ -8,7 +8,9 @@
     "depmanager": "./dist/cli.js"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "LICENSE",
+    "README.md"
   ],
   "scripts": {
     "build": "tsc",
@@ -17,11 +19,14 @@
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run build",
     "test": "jest",
-    "test:watch": "jest --watch", 
+    "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:cli": "npm run build && node test-cli.js",
     "test:verify": "npm run build && node verify-tests.js",
-    "lint": "tsc --noEmit",
+    "license:check": "./check-license-headers.sh",
+    "lint": "eslint .",
+    "lint:types": "tsc --noEmit",
+    "lint:fix": "eslint . --fix",
     "start": "node dist/cli.js"
   },
   "keywords": [
@@ -42,6 +47,9 @@
   "devDependencies": {
     "@types/jest": "^30.0.0",
     "@types/node": "^24.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.44.1",
+    "@typescript-eslint/parser": "^8.44.1",
+    "eslint": "^9.36.0",
     "jest": "^29.7.0",
     "ts-jest": "^29.4.4",
     "ts-node": "^10.9.2",
