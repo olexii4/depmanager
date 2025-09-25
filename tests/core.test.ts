@@ -1,7 +1,10 @@
-const {
+/// <reference path="./setup.d.ts" />
+
+import {
   getYarnVersionType,
   getWorkspaceInfo,
-} = require('../src/depmanager');
+} from '../src/depmanager';
+import { YarnVersionType, WorkspaceInfo } from '../src/types';
 
 describe('Core Functionality', () => {
   describe('getYarnVersionType', () => {
@@ -19,7 +22,7 @@ describe('Core Functionality', () => {
 
     test('should return null for invalid version', () => {
       expect(getYarnVersionType(null)).toBe(null);
-      expect(getYarnVersionType(undefined)).toBe(null);
+      expect(getYarnVersionType(undefined as any)).toBe(null);
     });
 
     test('should handle edge cases', () => {
@@ -30,7 +33,7 @@ describe('Core Functionality', () => {
   });
 
   describe('getWorkspaceInfo', () => {
-    let tempDir;
+    let tempDir: string;
 
     beforeEach(() => {
       tempDir = createTempDir();
@@ -43,10 +46,11 @@ describe('Core Functionality', () => {
     test('should detect no workspaces for regular project', () => {
       createPackageJson(tempDir, {
         name: 'regular-project',
+        version: '1.0.0',
         dependencies: { react: '^18.0.0' }
       });
 
-      const result = getWorkspaceInfo(tempDir);
+      const result: WorkspaceInfo = getWorkspaceInfo(tempDir);
       expect(result).toEqual({
         hasWorkspaces: false,
         packages: []
@@ -56,10 +60,11 @@ describe('Core Functionality', () => {
     test('should detect workspaces with array format', () => {
       createPackageJson(tempDir, {
         name: 'workspace-project',
+        version: '1.0.0',
         workspaces: ['packages/*', 'apps/*']
       });
 
-      const result = getWorkspaceInfo(tempDir);
+      const result: WorkspaceInfo = getWorkspaceInfo(tempDir);
       expect(result).toEqual({
         hasWorkspaces: true,
         packages: ['packages/*', 'apps/*']
@@ -69,12 +74,13 @@ describe('Core Functionality', () => {
     test('should detect workspaces with object format', () => {
       createPackageJson(tempDir, {
         name: 'workspace-project',
+        version: '1.0.0',
         workspaces: {
           packages: ['packages/*', 'tools/*']
         }
       });
 
-      const result = getWorkspaceInfo(tempDir);
+      const result: WorkspaceInfo = getWorkspaceInfo(tempDir);
       expect(result).toEqual({
         hasWorkspaces: true,
         packages: ['packages/*', 'tools/*']
@@ -82,7 +88,7 @@ describe('Core Functionality', () => {
     });
 
     test('should handle missing package.json', () => {
-      const result = getWorkspaceInfo(tempDir);
+      const result: WorkspaceInfo = getWorkspaceInfo(tempDir);
       expect(result).toEqual({
         hasWorkspaces: false,
         packages: []
@@ -94,7 +100,7 @@ describe('Core Functionality', () => {
       const path = require('path');
       fs.writeFileSync(path.join(tempDir, 'package.json'), 'invalid json');
       
-      const result = getWorkspaceInfo(tempDir);
+      const result: WorkspaceInfo = getWorkspaceInfo(tempDir);
       expect(result).toEqual({
         hasWorkspaces: false,
         packages: []
@@ -104,6 +110,7 @@ describe('Core Functionality', () => {
     test('should handle complex workspace patterns', () => {
       createPackageJson(tempDir, {
         name: 'complex-workspace',
+        version: '1.0.0',
         private: true,
         workspaces: [
           'packages/*',
@@ -113,7 +120,7 @@ describe('Core Functionality', () => {
         ]
       });
 
-      const result = getWorkspaceInfo(tempDir);
+      const result: WorkspaceInfo = getWorkspaceInfo(tempDir);
       expect(result.hasWorkspaces).toBe(true);
       expect(result.packages).toHaveLength(4);
       expect(result.packages).toContain('packages/*');
@@ -123,6 +130,7 @@ describe('Core Functionality', () => {
     test('should handle workspace with nohoist', () => {
       createPackageJson(tempDir, {
         name: 'workspace-nohoist',
+        version: '1.0.0',
         private: true,
         workspaces: {
           packages: ['packages/*'],
@@ -130,7 +138,7 @@ describe('Core Functionality', () => {
         }
       });
 
-      const result = getWorkspaceInfo(tempDir);
+      const result: WorkspaceInfo = getWorkspaceInfo(tempDir);
       expect(result).toEqual({
         hasWorkspaces: true,
         packages: ['packages/*']

@@ -168,12 +168,30 @@ depmanager check --help
 
 ## Development
 
+### TypeScript
+
+This project is written in TypeScript for better type safety and developer experience:
+
+```bash
+# Build TypeScript to JavaScript
+npm run build
+
+# Development with hot reloading
+npm run dev
+
+# Type checking
+npm run lint
+
+# Watch mode for building
+npm run build:watch
+```
+
 ### Testing
 
 The project includes a comprehensive test suite:
 
 ```bash
-# Run tests
+# Run tests (automatically builds TypeScript)
 npm test
 
 # Run tests with coverage
@@ -181,6 +199,9 @@ npm run test:coverage
 
 # Run tests in watch mode
 npm run test:watch
+
+# Verify all functionality
+npm run test:verify
 ```
 
 Test coverage includes:
@@ -192,10 +213,31 @@ Test coverage includes:
 ### Contributing
 
 When contributing:
-1. Add tests for new functionality
-2. Ensure existing tests pass
-3. Follow the existing code patterns
-4. Update documentation as needed
+1. Write TypeScript code with proper types
+2. Add tests for new functionality
+3. Ensure existing tests pass
+4. Run `npm run build` to compile TypeScript
+5. Follow the existing code patterns
+6. Update documentation as needed
+
+### Project Structure
+
+```
+src/
+├── types.ts       # TypeScript type definitions
+├── depmanager.ts  # Core functionality
+└── cli.ts         # CLI interface
+
+tests/
+├── setup.js       # Test helpers
+├── setup.d.ts     # TypeScript declarations for test helpers
+└── core.test.ts   # TypeScript tests
+
+dist/              # Compiled JavaScript (generated)
+├── cli.js         # Main CLI executable
+├── depmanager.js  # Core functions
+└── *.d.ts         # Type declaration files
+```
 
 ## License
 

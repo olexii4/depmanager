@@ -119,3 +119,13 @@ tests/temp/
 # Build artifacts
 dist/
 build/
+
+# TypeScript
+*.tsbuildinfo
+
+# TypeScript compilation artifacts (outside of dist/)
+/tests/*.d.ts
+/tests/*.js.map
+/tests/*.d.ts.map
+/*.d.ts
+/*.js.map

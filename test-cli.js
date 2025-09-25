@@ -50,7 +50,7 @@ async function testCLI() {
   
   try {
     const testDir = await createTestProject();
-    const cliPath = path.join(__dirname, 'index.js');
+    const cliPath = path.join(__dirname, 'dist', 'cli.js');
     
     console.log('✅ Created test project');
     

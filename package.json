@@ -2,16 +2,27 @@
   "name": "depmanager",
   "version": "1.0.0",
   "description": "A CLI tool for managing project dependencies with support for npm, yarn 1.x, and yarn 2+",
-  "main": "index.js",
+  "main": "dist/cli.js",
+  "types": "dist/cli.d.ts",
   "bin": {
-    "depmanager": "./index.js"
+    "depmanager": "./dist/cli.js"
   },
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "dev": "ts-node src/cli.ts",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
     "test": "jest",
-    "test:watch": "jest --watch",
+    "test:watch": "jest --watch", 
     "test:coverage": "jest --coverage",
-    "test:cli": "node test-cli.js",
-    "test:verify": "node verify-tests.js"
+    "test:cli": "npm run build && node test-cli.js",
+    "test:verify": "npm run build && node verify-tests.js",
+    "lint": "tsc --noEmit",
+    "start": "node dist/cli.js"
   },
   "keywords": [
     "dependency",
@@ -29,6 +40,11 @@
     "npm-check-updates": "^18.3.0"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.5.2",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.4.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
   }
 }
